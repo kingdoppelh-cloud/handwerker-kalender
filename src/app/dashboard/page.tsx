@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, MapPin, Search, Filter, Phone, ExternalLink, LogOut, Trash2, Home } from 'lucide-react';
+import { Calendar, Clock, MapPin, ExternalLink, LogOut, Trash2, Home } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
@@ -307,23 +307,3 @@ function BookingCard({ booking, onStatusUpdate, onDelete }: { booking: Booking, 
     );
 }
 
-function Badge({ status }: { status: 'pending' | 'confirmed' | 'completed' | 'rejected' }) {
-    const styles: Record<string, string> = {
-        pending: 'bg-amber-100 text-amber-700 border-amber-200',
-        confirmed: 'bg-blue-100 text-blue-700 border-blue-200',
-        completed: 'bg-green-100 text-green-700 border-green-200',
-        rejected: 'bg-red-100 text-red-700 border-red-200',
-    };
-    const labels: Record<string, string> = {
-        pending: 'Neu',
-        confirmed: 'Bestätigt',
-        completed: 'Erledigt',
-        rejected: 'Abgelehnt',
-    };
-
-    return (
-        <span className={`px-2.5 py-0.5 rounded-full text-xs font-semibold border ${styles[status]}`}>
-            {labels[status]}
-        </span>
-    );
-}
