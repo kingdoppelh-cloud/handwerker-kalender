@@ -1,0 +1,431 @@
+﻿
+> handwerker-kalender@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.16
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/10) ...
+   Generating static pages (2/10) 
+   Generating static pages (4/10) 
+   Generating static pages (7/10) 
+node.exe : Error: 
+@supabase/ssr: 
+Your project's URL 
+and API key are 
+required to create 
+a Supabase client!
+At line:1 char:1
++ & "C:\Program Fil
+es\nodejs/node.exe"
+ "C:\Program Files\
+nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
+    + CategoryInfo 
+             : No  
+  tSpecified: (E   
+ rror: @supabas    
+...upabase cli    
+ent!:String) [    
+], RemoteExcep    
+tion
+    + FullyQualifi 
+   edErrorId : Na  
+  tiveCommandErr   
+ or
+ 
+
+Check your 
+Supabase project's 
+API settings to 
+find these values
+
+https://supabase.co
+m/dashboard/project
+/_/settings/api
+    at rC (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\.next\
+server\chunks\41.js
+:37:55869)
+    at p (E:\antigr
+avity-awesome-skill
+s\projects\handwerk
+er-kalender\.next\s
+erver\app\login\pag
+e.js:1:2753)
+    at nj (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:46251)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47571)
+    at nN (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:64546)
+    at nI (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47010)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47717)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:61546)
+    at nN (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:64546)
+    at nB (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:67538) {
+  digest: 
+'3789652160'
+}
+
+Error occurred 
+prerendering page 
+"/login". Read 
+more: https://nextj
+s.org/docs/messages
+/prerender-error
+
+Error: 
+@supabase/ssr: 
+Your project's URL 
+and API key are 
+required to create 
+a Supabase client!
+
+Check your 
+Supabase project's 
+API settings to 
+find these values
+
+https://supabase.co
+m/dashboard/project
+/_/settings/api
+    at rC (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\.next\
+server\chunks\41.js
+:37:55869)
+    at p (E:\antigr
+avity-awesome-skill
+s\projects\handwerk
+er-kalender\.next\s
+erver\app\login\pag
+e.js:1:2753)
+    at nj (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:46251)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47571)
+    at nN (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:64546)
+    at nI (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47010)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47717)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:61546)
+    at nN (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:64546)
+    at nB (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:67538)
+Error: 
+@supabase/ssr: 
+Your project's URL 
+and API key are 
+required to create 
+a Supabase client!
+
+Check your 
+Supabase project's 
+API settings to 
+find these values
+
+https://supabase.co
+m/dashboard/project
+/_/settings/api
+    at rC (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\.next\
+server\chunks\41.js
+:37:55869)
+    at h (E:\antigr
+avity-awesome-skill
+s\projects\handwerk
+er-kalender\.next\s
+erver\app\dashboard
+\page.js:1:4848)
+    at nj (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:46251)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47571)
+    at nN (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:64546)
+    at nI (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47010)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47717)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:61546)
+    at nN (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:64546)
+    at nB (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:67538) {
+  digest: 
+'166327580'
+}
+
+Error occurred 
+prerendering page 
+"/dashboard". Read 
+more: https://nextj
+s.org/docs/messages
+/prerender-error
+
+Error: 
+@supabase/ssr: 
+Your project's URL 
+and API key are 
+required to create 
+a Supabase client!
+
+Check your 
+Supabase project's 
+API settings to 
+find these values
+
+https://supabase.co
+m/dashboard/project
+/_/settings/api
+    at rC (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\.next\
+server\chunks\41.js
+:37:55869)
+    at h (E:\antigr
+avity-awesome-skill
+s\projects\handwerk
+er-kalender\.next\s
+erver\app\dashboard
+\page.js:1:4848)
+    at nj (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:46251)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47571)
+    at nN (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:64546)
+    at nI (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47010)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:47717)
+    at nM (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:61546)
+    at nN (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:64546)
+    at nB (E:\antig
+ravity-awesome-skil
+ls\projects\handwer
+ker-kalender\node_m
+odules\next\dist\co
+mpiled\next-server\
+app-page.runtime.pr
+od.js:12:67538)
+ Γ£ô Generating static pages (10/10)
+
+> Export 
+encountered errors 
+on following paths:
+	/dashboard/page: 
+/dashboard
+	/login/page: 
+/login
