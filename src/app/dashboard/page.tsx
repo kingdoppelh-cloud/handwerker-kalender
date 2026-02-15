@@ -2,12 +2,12 @@
 
 export const dynamic = 'force-dynamic';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, Clock, MapPin, ExternalLink, LogOut, Trash2, Home, CheckCircle2, Clock3, AlertCircle, Phone } from 'lucide-react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
 
 interface Booking {
@@ -23,11 +23,24 @@ interface Booking {
 }
 
 export default function DashboardPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-slate-50">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+            </div>
+        }>
+            <DashboardContent />
+        </Suspense>
+    );
+}
+
+function DashboardContent() {
     const [activeTab, setActiveTab] = useState<'pending' | 'confirmed' | 'completed'>('pending');
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDemo, setIsDemo] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
 
     const supabase = createBrowserClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co',
@@ -48,10 +61,15 @@ export default function DashboardPage() {
     }, [supabase]);
 
     useEffect(() => {
-        const demoMode = localStorage.getItem('isDemoMode') === 'true';
+        const demoParam = searchParams.get('demo') === 'true';
+        const demoStorage = localStorage.getItem('isDemoMode') === 'true';
+        const demoMode = demoParam || demoStorage;
+
         setIsDemo(demoMode);
 
         if (demoMode) {
+            // Ensure storage is in sync for refreshes
+            localStorage.setItem('isDemoMode', 'true');
             setBookings([
                 {
                     id: 'demo-1',
@@ -80,7 +98,7 @@ export default function DashboardPage() {
         } else {
             fetchBookings();
         }
-    }, [fetchBookings]);
+    }, [fetchBookings, searchParams]);
 
     const updateStatus = async (id: string, newStatus: string) => {
         if (isDemo) {

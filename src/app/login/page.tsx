@@ -13,7 +13,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const router = useRouter();
 
@@ -24,7 +23,6 @@ export default function LoginPage() {
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        setLoading(true);
         setError(null);
 
         const { error } = await supabase.auth.signInWithPassword({
@@ -34,7 +32,6 @@ export default function LoginPage() {
 
         if (error) {
             setError('Login fehlgeschlagen: ' + error.message);
-            setLoading(false);
         } else {
             router.push('/dashboard');
             router.refresh();
@@ -74,35 +71,35 @@ export default function LoginPage() {
                             />
                         </div>
                         {error && (
-                            <div className="p-3 text-sm text-red-600 bg-red-50 rounded-md border border-red-100">
+                            <div className="p-3 text-sm text-red-600 bg-red-50 rounded-md border border-red-100 mb-4">
                                 {error}
                             </div>
                         )}
-                        <Button className="w-full h-11 bg-blue-600 hover:bg-blue-700 font-bold" type="submit" disabled={loading}>
-                            {loading ? 'Anmeldung...' : 'Einloggen'}
-                        </Button>
-
-                        <div className="relative py-4">
-                            <div className="absolute inset-0 flex items-center">
-                                <span className="w-full border-t border-slate-200"></span>
-                            </div>
-                            <div className="relative flex justify-center text-xs uppercase">
-                                <span className="bg-white px-2 text-slate-400 font-medium">Oder</span>
-                            </div>
-                        </div>
-
-                        <Button
-                            type="button"
-                            variant="outline"
-                            className="w-full h-11 border-blue-200 text-blue-600 hover:bg-blue-50 font-bold rounded-xl transition-all"
-                            onClick={() => {
-                                localStorage.setItem('isDemoMode', 'true');
-                                router.push('/dashboard');
-                            }}
-                        >
-                            Demo-Dashboard testen
+                        <Button className="w-full h-11 bg-blue-600 hover:bg-blue-700 font-bold" type="submit">
+                            Einloggen
                         </Button>
                     </form>
+
+                    <div className="relative py-4">
+                        <div className="absolute inset-0 flex items-center">
+                            <span className="w-full border-t border-slate-200"></span>
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                            <span className="bg-white px-2 text-slate-400 font-medium">Oder</span>
+                        </div>
+                    </div>
+
+                    <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full h-11 border-blue-200 text-blue-600 hover:bg-blue-50 font-bold rounded-xl transition-all"
+                        onClick={() => {
+                            localStorage.setItem('isDemoMode', 'true');
+                            router.push('/dashboard?demo=true');
+                        }}
+                    >
+                        Demo-Dashboard testen
+                    </Button>
                 </CardContent>
             </Card>
         </div>

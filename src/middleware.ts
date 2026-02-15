@@ -56,8 +56,9 @@ export async function middleware(request: NextRequest) {
 
     const { data: { session } } = await supabase.auth.getSession()
 
-    // Dashboard schützen
-    if (request.nextUrl.pathname.startsWith('/dashboard') && !session) {
+    // Dashboard schützen (außer im Demo-Modus)
+    const isDemoMode = request.nextUrl.searchParams.get('demo') === 'true'
+    if (request.nextUrl.pathname.startsWith('/dashboard') && !session && !isDemoMode) {
         return NextResponse.redirect(new URL('/login', request.url))
     }
 
