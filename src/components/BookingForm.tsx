@@ -9,7 +9,8 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
-import { Calendar, Clock, CheckCircle } from 'lucide-react';
+import { Calendar, Clock, CheckCircle, ArrowRight, Home } from 'lucide-react';
+import Link from 'next/link';
 
 const formSchema = z.object({
     service: z.string().min(1, 'Bitte wählen Sie eine Dienstleistung'),
@@ -30,7 +31,6 @@ const services = [
     'Beratung'
 ];
 
-// Mock-Zeitslots (später dynamisch)
 const timeSlots = [
     '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'
 ];
@@ -52,10 +52,7 @@ export default function BookingForm() {
                 body: JSON.stringify(data),
             });
 
-            if (!response.ok) {
-                throw new Error('Netzwerk-Antwort war nicht ok');
-            }
-
+            if (!response.ok) throw new Error('Fehler');
             setIsSubmitted(true);
         } catch {
             alert('Entschuldigung, es gab ein Problem bei der Buchung. Bitte versuchen Sie es später erneut.');
@@ -66,24 +63,31 @@ export default function BookingForm() {
 
     if (isSubmitted) {
         return (
-            <Card className="border-green-100 bg-green-50">
-                <CardContent className="pt-6 pb-6 text-center">
-                    <CheckCircle className="mx-auto h-12 w-12 text-green-600 mb-4" />
-                    <h2 className="text-xl font-semibold text-green-900 mb-2">Anfrage erfolgreich gesendet!</h2>
-                    <p className="text-green-700">Wir haben Ihre Buchungsanfrage erhalten und melden uns in Kürze zur Bestätigung per E-Mail oder Telefon bei Ihnen.</p>
-                    <div className="flex flex-col sm:flex-row gap-2 justify-center mt-6">
+            <Card className="rounded-[40px] border-none shadow-2xl shadow-emerald-900/10 overflow-hidden animate-fade-in">
+                <CardContent className="p-12 text-center bg-white/50 backdrop-blur-xl">
+                    <div className="w-20 h-20 bg-emerald-100 rounded-3xl flex items-center justify-center mx-auto mb-8 text-emerald-600">
+                        <CheckCircle size={40} />
+                    </div>
+                    <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Anfrage gesendet!</h2>
+                    <p className="text-slate-600 text-lg leading-relaxed max-w-sm mx-auto">
+                        Wir haben Ihre Buchungsanfrage erhalten und melden uns in Kürze zur Bestätigung bei Ihnen.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
                         <Button
-                            variant="primary"
+                            className="h-14 px-8 rounded-2xl bg-blue-600 hover:bg-blue-700 font-bold"
                             onClick={() => setIsSubmitted(false)}
                         >
                             Neue Buchung
                         </Button>
-                        <Button
-                            variant="outline"
-                            onClick={() => window.location.href = '/'}
-                        >
-                            Zur Startseite
-                        </Button>
+                        <Link href="/">
+                            <Button
+                                variant="outline"
+                                className="h-14 px-8 rounded-2xl border-slate-200 hover:bg-slate-50 font-bold"
+                            >
+                                <Home className="mr-2 h-4 w-4" />
+                                Startseite
+                            </Button>
+                        </Link>
                     </div>
                 </CardContent>
             </Card>
@@ -91,98 +95,91 @@ export default function BookingForm() {
     }
 
     return (
-        <Card className="shadow-lg overflow-hidden border-slate-200">
+        <Card className="rounded-[40px] border-none shadow-2xl shadow-blue-900/10 overflow-hidden animate-fade-in">
+            <div className="bg-slate-900 p-8 text-white relative">
+                <div className="relative z-10">
+                    <h2 className="text-2xl font-bold tracking-tight">Termin vereinbaren</h2>
+                    <p className="text-slate-400 text-sm mt-1">Geben Sie hier Ihre Details ein.</p>
+                </div>
+                {/* Decorative element */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/20 rounded-full blur-3xl -mr-16 -mt-16" />
+            </div>
+
             <form onSubmit={handleSubmit(onSubmit)}>
-                <CardContent className="p-6 space-y-6">
-                    {/* Service Auswahl */}
-                    <div className="space-y-2">
-                        <Label htmlFor="service">Dienstleistung</Label>
-                        <select
-                            id="service"
-                            {...register('service')}
-                            className="flex h-10 w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E40AF]"
-                        >
-                            <option value="">Bitte wählen...</option>
-                            {services.map(s => <option key={s} value={s}>{s}</option>)}
-                        </select>
-                        {errors.service && <p className="text-xs text-red-500">{errors.service.message}</p>}
+                <CardContent className="p-8 space-y-8 bg-white/50 backdrop-blur-xl">
+                    <div className="space-y-6">
+                        <div className="space-y-2">
+                            <Label htmlFor="service" className="text-xs font-black uppercase tracking-widest text-slate-400">Dienstleistung</Label>
+                            <select
+                                id="service"
+                                {...register('service')}
+                                className="flex h-14 w-full rounded-2xl border border-slate-200 bg-white/50 px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all appearance-none"
+                            >
+                                <option value="">Bitte wählen...</option>
+                                {services.map(s => <option key={s} value={s}>{s}</option>)}
+                            </select>
+                            {errors.service && <p className="text-xs text-red-500 font-medium">{errors.service.message}</p>}
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="date" className="text-xs font-black uppercase tracking-widest text-slate-400">Datum</Label>
+                                <div className="relative">
+                                    <Input
+                                        id="date"
+                                        type="date"
+                                        {...register('date')}
+                                        className="h-14 pl-12 rounded-2xl border-slate-200 bg-white/50 focus:ring-blue-600/20"
+                                    />
+                                    <Calendar className="absolute left-4 top-4 h-5 w-5 text-slate-400" />
+                                </div>
+                                {errors.date && <p className="text-xs text-red-500 font-medium">{errors.date.message}</p>}
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="time" className="text-xs font-black uppercase tracking-widest text-slate-400">Uhrzeit</Label>
+                                <div className="relative">
+                                    <select
+                                        id="time"
+                                        {...register('time')}
+                                        className="flex h-14 w-full rounded-2xl border border-slate-200 bg-white/50 pl-12 pr-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all appearance-none"
+                                    >
+                                        <option value="">Wählen...</option>
+                                        {timeSlots.map(t => <option key={t} value={t}>{t} Uhr</option>)}
+                                    </select>
+                                    <Clock className="absolute left-4 top-4 h-5 w-5 text-slate-400" />
+                                </div>
+                                {errors.time && <p className="text-xs text-red-500 font-medium">{errors.time.message}</p>}
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {/* Datum */}
-                        <div className="space-y-2">
-                            <Label htmlFor="date">Datum</Label>
-                            <div className="relative">
-                                <Input
-                                    id="date"
-                                    type="date"
-                                    {...register('date')}
-                                    className="pl-10"
-                                />
-                                <Calendar className="absolute left-3 top-2.5 h-5 w-5 text-slate-400" />
-                            </div>
-                            {errors.date && <p className="text-xs text-red-500">{errors.date.message}</p>}
-                        </div>
-
-                        {/* Uhrzeit */}
-                        <div className="space-y-2">
-                            <Label htmlFor="time">Uhrzeit</Label>
-                            <div className="relative">
-                                <select
-                                    id="time"
-                                    {...register('time')}
-                                    className="flex h-10 w-full rounded-md border border-slate-200 bg-white pl-10 pr-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E40AF]"
-                                >
-                                    <option value="">Wählen...</option>
-                                    {timeSlots.map(t => <option key={t} value={t}>{t} Uhr</option>)}
-                                </select>
-                                <Clock className="absolute left-3 top-2.5 h-5 w-5 text-slate-400" />
-                            </div>
-                            {errors.time && <p className="text-xs text-red-500">{errors.time.message}</p>}
-                        </div>
-                    </div>
-
-                    <hr className="border-slate-100" />
-
-                    {/* Kontaktdaten */}
-                    <div className="space-y-4">
-                        <div className="space-y-2">
-                            <Label htmlFor="name">Vollständiger Name</Label>
-                            <Input id="name" {...register('name')} placeholder="Max Mustermann" />
-                            {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="phone">Telefonnummer</Label>
-                            <Input id="phone" {...register('phone')} placeholder="+49 123 4567890" />
-                            {errors.phone && <p className="text-xs text-red-500">{errors.phone.message}</p>}
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="address">Anschrift (Einsatzort)</Label>
-                            <Input id="address" {...register('address')} placeholder="Hauptstraße 1, 12345 Berlin" />
-                            {errors.address && <p className="text-xs text-red-500">{errors.address.message}</p>}
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="description">Beschreibung des Problems</Label>
+                    <div className="pt-4 space-y-4">
+                        <Label className="text-xs font-black uppercase tracking-widest text-slate-400">Persönliche Daten</Label>
+                        <div className="space-y-4">
+                            <Input id="name" {...register('name')} placeholder="Max Mustermann" className="h-14 rounded-2xl border-slate-200 bg-white/50" />
+                            <Input id="phone" {...register('phone')} placeholder="+49 123 4567890" className="h-14 rounded-2xl border-slate-200 bg-white/50" />
+                            <Input id="address" {...register('address')} placeholder="Hauptstraße 1, 12345 Berlin" className="h-14 rounded-2xl border-slate-200 bg-white/50" />
                             <Textarea
                                 id="description"
                                 {...register('description')}
-                                placeholder="Bitte beschreiben Sie kurz, was genau repariert werden muss..."
+                                placeholder="Beschreiben Sie kurz Ihr Anliegen..."
+                                className="rounded-2xl border-slate-200 bg-white/50 min-h-[120px]"
                             />
                         </div>
                     </div>
 
                     <Button
                         type="submit"
-                        className="w-full text-lg h-12"
                         disabled={isLoading}
+                        className="w-full h-16 rounded-2xl bg-blue-600 hover:bg-blue-700 text-lg font-bold shadow-xl shadow-blue-900/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
                     >
-                        {isLoading ? 'Wird gesendet...' : 'Jetzt verbindlich buchen'}
+                        {isLoading ? 'Wird gesendet...' : 'Anfrage verbindlich senden'}
+                        {!isLoading && <ArrowRight className="ml-2 w-5 h-5" />}
                     </Button>
-                    <p className="text-[10px] text-center text-slate-400">
-                        Mit der Buchung akzeptieren Sie unsere AGB und Datenschutzbestimmungen.
+
+                    <p className="text-[10px] text-center text-slate-400 font-medium">
+                        Ihre Daten werden verschlüsselt übertragen. Meisterbetrieb-Qualität garantiert.
                     </p>
                 </CardContent>
             </form>
