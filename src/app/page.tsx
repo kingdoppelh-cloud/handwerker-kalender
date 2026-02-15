@@ -7,41 +7,49 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white selection:bg-blue-100">
       {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden mesh-gradient text-white">
-        {/* Subtle decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
-          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500 rounded-full blur-[120px]" />
-          <div className="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] bg-indigo-500 rounded-full blur-[100px]" />
-        </div>
+      <section className="relative h-[85vh] min-h-[600px] flex items-center overflow-hidden text-white">
+        {/* Video Background */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        >
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* 60% Black Overlay */}
+        <div className="absolute top-0 left-0 w-full h-full bg-black/60 z-10" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-medium mb-6 animate-fade-in">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-300 text-sm font-medium mb-6 animate-fade-in">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
               </span>
-              Modernes Termin-Management
+              Handwerk trifft Digitalisierung
             </div>
 
             <h1 className="text-5xl font-extrabold sm:text-7xl mb-8 tracking-tight text-white animate-fade-in [animation-delay:200ms]">
-              Termine beim Handwerker <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300">online buchen</span>.
+              Schluss mit <span className="text-blue-400">Telefon-Chaos</span>.
             </h1>
 
-            <p className="text-xl text-slate-300 mb-12 leading-relaxed animate-fade-in [animation-delay:400ms]">
-              Schluss mit Telefon-Warteschleifen. Buchen Sie Ihren Profi-Termin direkt online – einfach, schnell und verbindlich.
+            <p className="text-xl text-slate-200 mb-12 leading-relaxed animate-fade-in [animation-delay:400ms]">
+              Buchen Sie Ihren Handwerker-Termin direkt online – einfach, schnell und verbindlich. Für mehr Zeit im echten Leben.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in [animation-delay:600ms]">
               <Link href="/buchen">
-                <Button size="lg" className="w-full sm:w-auto text-lg px-8 py-7 h-auto bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-900/20 rounded-2xl group transition-all duration-300">
+                <Button size="lg" className="w-full sm:w-auto text-lg px-8 py-7 h-auto bg-blue-600 hover:bg-blue-700 shadow-xl shadow-blue-600/20 rounded-2xl group transition-all duration-300">
                   Jetzt Termin sichern
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link href="/dashboard">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto text-lg text-white border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 px-8 py-7 h-auto rounded-2xl transition-all duration-300">
-                  Für Handwerker
+                <Button variant="outline" size="lg" className="w-full sm:w-auto text-lg text-white border-white/30 bg-white/5 backdrop-blur-md hover:bg-white/10 px-8 py-7 h-auto rounded-2xl transition-all duration-300">
+                  Business Dashboard
                 </Button>
               </Link>
             </div>
