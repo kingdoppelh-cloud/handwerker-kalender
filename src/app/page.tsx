@@ -88,9 +88,12 @@ export default function HomePage() {
             </p>
             <button
               onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-10 py-6 bg-white text-blue-600 font-black text-xl rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all"
+              className="px-10 py-6 bg-white text-blue-600 font-black text-xl rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] relative overflow-hidden group/btn"
             >
-              Jetzt Pilot-Platz anfragen
+              <span className="relative z-10 flex items-center gap-2">
+                Jetzt Pilot-Platz anfragen
+                <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-1 transition-transform" />
+              </span>
             </button>
             <div className="mt-8 flex items-center justify-center gap-6 text-sm text-blue-200">
               <span className="flex items-center gap-1"><CheckCircle2 size={16} /> Keine monatlichen Kosten</span>
