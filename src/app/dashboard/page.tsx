@@ -26,6 +26,7 @@ export default function DashboardPage() {
     const [activeTab, setActiveTab] = useState<'pending' | 'confirmed' | 'completed'>('pending');
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isDemo, setIsDemo] = useState(false);
     const router = useRouter();
 
     const supabase = createBrowserClient(
@@ -47,10 +48,45 @@ export default function DashboardPage() {
     }, [supabase]);
 
     useEffect(() => {
-        fetchBookings();
+        const demoMode = localStorage.getItem('isDemoMode') === 'true';
+        setIsDemo(demoMode);
+
+        if (demoMode) {
+            setBookings([
+                {
+                    id: 'demo-1',
+                    customer_name: 'Max Mustermann (DEMO)',
+                    service: 'Heizungswartung',
+                    booking_date: '2024-03-20',
+                    booking_time: '10:00',
+                    status: 'pending',
+                    customer_phone: '0171 1234567',
+                    customer_address: 'Sonnenallee 12, Berlin',
+                    problem_description: 'Die Heizung macht seltsame Geräusche und wird nicht richtig warm.'
+                },
+                {
+                    id: 'demo-2',
+                    customer_name: 'Erika Schmidt (DEMO)',
+                    service: 'Rohreinigung',
+                    booking_date: '2024-03-21',
+                    booking_time: '14:30',
+                    status: 'confirmed',
+                    customer_phone: '0160 9876543',
+                    customer_address: 'Hauptstraße 45, Berlin',
+                    problem_description: 'Abfluss in der Küche ist komplett verstopft.'
+                }
+            ]);
+            setLoading(false);
+        } else {
+            fetchBookings();
+        }
     }, [fetchBookings]);
 
     const updateStatus = async (id: string, newStatus: string) => {
+        if (isDemo) {
+            setBookings(prev => prev.map(b => b.id === id ? { ...b, status: newStatus as any } : b));
+            return;
+        }
         const { error } = await supabase
             .from('bookings')
             .update({ status: newStatus })
@@ -63,6 +99,11 @@ export default function DashboardPage() {
 
     const deleteBooking = async (id: string) => {
         if (!confirm('Möchten Sie diese Buchung wirklich dauerhaft löschen?')) return;
+
+        if (isDemo) {
+            setBookings(prev => prev.filter(b => b.id !== id));
+            return;
+        }
 
         const { error } = await supabase
             .from('bookings')
@@ -77,6 +118,7 @@ export default function DashboardPage() {
     };
 
     const handleLogout = async () => {
+        localStorage.removeItem('isDemoMode');
         await supabase.auth.signOut();
         router.push('/login');
         router.refresh();
@@ -99,15 +141,23 @@ export default function DashboardPage() {
                         </div>
                     </div>
 
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={handleLogout}
-                        className="text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl px-4"
-                    >
-                        <LogOut className="h-4 w-4 mr-2" />
-                        Abmelden
-                    </Button>
+                    <div className="flex items-center gap-4">
+                        {isDemo && (
+                            <div className="hidden md:flex items-center gap-2 px-4 py-1.5 bg-yellow-400 text-blue-900 rounded-full text-xs font-black shadow-lg shadow-yellow-400/20">
+                                <AlertCircle size={14} />
+                                DEMO-MODUS AKTIV
+                            </div>
+                        )}
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={handleLogout}
+                            className="text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl px-4"
+                        >
+                            <LogOut className="h-4 w-4 mr-2" />
+                            {isDemo ? 'Demo beenden' : 'Abmelden'}
+                        </Button>
+                    </div>
                 </div>
             </header>
 

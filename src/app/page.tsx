@@ -73,8 +73,8 @@ export default function HomePage() {
       </div>
 
       {/* PILOT-AKTION Section */}
-      <section className="py-24 bg-blue-600 text-white overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20 -mr-48 -mt-48" />
+      <section className="py-24 bg-slate-900 text-white overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600 rounded-full blur-[120px] opacity-20 -mr-48 -mt-48" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[48px] p-8 md:p-16 text-center max-w-4xl mx-auto shadow-2xl">
             <div className="inline-block px-4 py-1.5 bg-yellow-400 text-blue-900 font-bold text-sm rounded-full mb-8 transform -rotate-2">

@@ -78,8 +78,29 @@ export default function LoginPage() {
                                 {error}
                             </div>
                         )}
-                        <Button className="w-full h-11" type="submit" disabled={loading}>
+                        <Button className="w-full h-11 bg-blue-600 hover:bg-blue-700 font-bold" type="submit" disabled={loading}>
                             {loading ? 'Anmeldung...' : 'Einloggen'}
+                        </Button>
+
+                        <div className="relative py-4">
+                            <div className="absolute inset-0 flex items-center">
+                                <span className="w-full border-t border-slate-200"></span>
+                            </div>
+                            <div className="relative flex justify-center text-xs uppercase">
+                                <span className="bg-white px-2 text-slate-400 font-medium">Oder</span>
+                            </div>
+                        </div>
+
+                        <Button
+                            type="button"
+                            variant="outline"
+                            className="w-full h-11 border-blue-200 text-blue-600 hover:bg-blue-50 font-bold rounded-xl transition-all"
+                            onClick={() => {
+                                localStorage.setItem('isDemoMode', 'true');
+                                router.push('/dashboard');
+                            }}
+                        >
+                            Demo-Dashboard testen
                         </Button>
                     </form>
                 </CardContent>
