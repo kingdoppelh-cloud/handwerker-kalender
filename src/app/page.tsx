@@ -1,3 +1,4 @@
+// Landing Page
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Calendar, ShieldCheck, Star } from 'lucide-react';
