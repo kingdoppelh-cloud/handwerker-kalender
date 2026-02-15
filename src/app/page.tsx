@@ -23,7 +23,7 @@ export default function HomePage() {
                 </Button>
               </Link>
               <Link href="/dashboard">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto text-lg text-white border-white hover:bg-white/10 h-14">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto text-lg text-white border-white bg-transparent hover:bg-white/10 h-14">
                   Für Handwerker
                 </Button>
               </Link>
