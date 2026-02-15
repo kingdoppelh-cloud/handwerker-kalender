@@ -243,8 +243,8 @@ function BookingCard({ booking, onStatusUpdate, onDelete }: { booking: Booking, 
                             </div>
                             <div className="space-y-4">
                                 <div className="flex items-center text-slate-600 text-sm bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                                    <MapPin className="w-4 h-4 mr-3 text-blue-600" />
-                                    <span className="truncate">{booking.customer_address}</span>
+                                    <MapPin className="w-4 h-4 mr-3 text-blue-600 shrink-0" />
+                                    <span className="break-words">{booking.customer_address}</span>
                                 </div>
                                 <div className="flex items-center text-slate-600 text-sm bg-slate-50 p-3 rounded-2xl border border-slate-100">
                                     <Phone className="w-4 h-4 mr-3 text-blue-600" />
