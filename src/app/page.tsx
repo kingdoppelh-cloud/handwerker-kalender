@@ -1,11 +1,15 @@
+'use client';
+
 // Landing Page
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Calendar, ShieldCheck, Star, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Star, MapPin, Calendar } from 'lucide-react';
+import SchemaOrg from '@/components/SchemaOrg';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white selection:bg-blue-100">
+    <main className="min-h-screen bg-white selection:bg-blue-100">
+      <SchemaOrg />
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] flex items-center overflow-hidden text-white">
         {/* Video Background */}
@@ -14,6 +18,8 @@ export default function HomePage() {
           muted
           loop
           playsInline
+          poster="/hero_video_poster.webp"
+          preload="auto"
           className="absolute top-0 left-0 w-full h-full object-cover z-0"
         >
           <source src="/hero.mp4" type="video/mp4" />
@@ -66,11 +72,39 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* PILOT-AKTION Section */}
+      <section className="py-24 bg-blue-600 text-white overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full blur-3xl opacity-20 -mr-48 -mt-48" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[48px] p-8 md:p-16 text-center max-w-4xl mx-auto shadow-2xl">
+            <div className="inline-block px-4 py-1.5 bg-yellow-400 text-blue-900 font-bold text-sm rounded-full mb-8 transform -rotate-2">
+              LIMITED PILOT OFFER
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
+              Starten Sie jetzt für nur <span className="text-yellow-400">495,00 €</span>
+            </h2>
+            <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Sichern Sie sich einen von nur 10 Pilot-Plätzen. Einmalige Zahlung, volle Power. Wir digitalisieren Ihren Betrieb persönlich.
+            </p>
+            <button
+              onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}
+              className="px-10 py-6 bg-white text-blue-600 font-black text-xl rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all"
+            >
+              Jetzt Pilot-Platz anfragen
+            </button>
+            <div className="mt-8 flex items-center justify-center gap-6 text-sm text-blue-200">
+              <span className="flex items-center gap-1"><CheckCircle2 size={16} /> Keine monatlichen Kosten</span>
+              <span className="flex items-center gap-1"><CheckCircle2 size={16} /> Persönliche Einrichtung</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features */}
       <section className="py-32 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
-            <h2 className="text-3xl font-bold text-slate-900 sm:text-5xl mb-4">Warum HandwerkerKalender?</h2>
+            <h2 className="text-3xl font-bold text-slate-900 sm:text-5xl mb-4">Ihr Vorsprung durch digitale Terminplanung</h2>
             <div className="w-20 h-1.5 bg-blue-600 mx-auto rounded-full" />
           </div>
 
@@ -102,11 +136,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-20">
+      {/* Personal Bio Section */}
+      <section className="py-24 bg-slate-50 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-1 lg:col-span-2">
+          <div className="bg-white rounded-[48px] p-8 md:p-16 border border-slate-100 shadow-xl flex flex-col md:flex-row items-center gap-12 relative z-10">
+            <div className="w-32 h-32 md:w-48 md:h-48 bg-blue-100 rounded-[40px] flex-shrink-0 flex items-center justify-center text-blue-600 overflow-hidden border-4 border-slate-50 shadow-inner">
+              {/* Replace with real image in production */}
+              <MapPin size={80} className="opacity-20 absolute" />
+              <span className="text-4xl font-black">HH</span>
+            </div>
+            <div className="text-center md:text-left">
+              <h3 className="text-3xl font-bold text-slate-900 mb-4 tracking-tight">Hendrik Heilos – Ihr Partner vor Ort</h3>
+              <p className="text-xl text-slate-600 leading-relaxed mb-6">
+                Ich bin Hendrik, Webentwickler aus der Region. Mein Ziel ist es, das Handwerk durch smarte Lösungen vom Telefon-Chaos zu befreien, damit Sie sich auf Ihre echte Arbeit konzentrieren können. Ich begleite Sie persönlich bei der Einrichtung Ihres Kalenders.
+              </p>
+              <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                <Link href="/buchen">
+                  <Button variant="outline" className="rounded-xl font-bold">Live-Demo testen</Button>
+                </Link>
+                <Link href="/buchen">
+                  <Button className="bg-blue-600 hover:bg-blue-700 rounded-xl font-bold text-white px-8">Jetzt anfragen</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer id="footer" className="bg-slate-900 text-white py-20 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-slate-800 pb-12 mb-12">
+            <div className="col-span-1 md:col-span-2">
               <div className="text-2xl font-bold mb-6 flex items-center gap-2">
                 <div className="w-8 h-8 bg-blue-600 rounded-lg" />
                 Handwerker<span className="text-blue-400">Kalender</span>
@@ -116,18 +177,25 @@ export default function HomePage() {
               </p>
             </div>
             <div>
+              <h4 className="font-bold mb-6">Links</h4>
+              <ul className="space-y-4 text-slate-400">
+                <li><Link href="/buchen" className="hover:text-blue-400 transition-colors">Jetzt Termin buchen</Link></li>
+                <li><Link href="/dashboard" className="hover:text-blue-400 transition-colors">Business Dashboard</Link></li>
+              </ul>
+            </div>
+            <div>
               <h4 className="font-bold mb-6">Rechtliches</h4>
               <ul className="space-y-4 text-slate-400">
-                <li><Link href="/impressum" className="hover:text-white transition-colors">Impressum</Link></li>
-                <li><Link href="/datenschutz" className="hover:text-white transition-colors">Datenschutz</Link></li>
+                <li><Link href="/impressum" className="hover:text-blue-400 transition-colors">Impressum</Link></li>
+                <li><Link href="/datenschutz" className="hover:text-blue-400 transition-colors">Datenschutz</Link></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-slate-800 pt-8 text-center text-slate-500 text-sm">
-            © 2024 HandwerkerKalender. Alle Rechte vorbehalten.
+          <div className="text-center text-slate-500 text-sm">
+            &copy; {new Date().getFullYear()} HandwerkerKalender Pro. Alle Rechte vorbehalten.
           </div>
         </div>
       </footer>
-    </div>
+    </main>
   );
 }

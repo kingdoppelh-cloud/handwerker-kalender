@@ -38,17 +38,25 @@ CREATE TABLE public.bookings (
   customer_address TEXT,
   problem_description TEXT,
   status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'confirmed', 'completed', 'rejected')),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  user_id UUID REFERENCES auth.users DEFAULT auth.uid() -- Optional: Für Multi-Handwerker Support
 );
 
 -- RLS für Bookings
 ALTER TABLE public.bookings ENABLE ROW LEVEL SECURITY;
 
--- Für den MVP: Der Admin darf alles lesen/schreiben, Kunden dürfen nur schreiben
--- Später: "user_id" hinzufügen für echte Multi-Handwerker Trennung
-CREATE POLICY "Alle Buchungen sind für Administratoren sichtbar" ON public.bookings
-  FOR ALL USING (true); -- Im MVP-Status für einfachen Start offen
+-- CRITICAL SECURITY FIX:
+-- Nur authentifizierte Benutzer (Handwerker) können alle Buchungen sehen und verwalten
+CREATE POLICY "Handwerker können alle Buchungen sehen" ON public.bookings
+  FOR SELECT USING (auth.role() = 'authenticated');
 
+CREATE POLICY "Handwerker können Buchungen bearbeiten" ON public.bookings
+  FOR UPDATE USING (auth.role() = 'authenticated');
+
+CREATE POLICY "Handwerker können Buchungen löschen" ON public.bookings
+  FOR DELETE USING (auth.role() = 'authenticated');
+
+-- Kunden können Buchungen anonym erstellen (Insert)
 CREATE POLICY "Jeder kann Buchungen erstellen" ON public.bookings
   FOR INSERT WITH CHECK (true);
 

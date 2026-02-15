@@ -11,6 +11,7 @@ import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
 import { Calendar, Clock, CheckCircle, ArrowRight, Home } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
     service: z.string().min(1, 'Bitte wählen Sie eine Dienstleistung'),
@@ -38,6 +39,7 @@ const timeSlots = [
 export default function BookingForm() {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
         resolver: zodResolver(formSchema),
@@ -53,7 +55,8 @@ export default function BookingForm() {
             });
 
             if (!response.ok) throw new Error('Fehler');
-            setIsSubmitted(true);
+            // Redirect to success page for premium experience
+            router.push('/success');
         } catch {
             alert('Entschuldigung, es gab ein Problem bei der Buchung. Bitte versuchen Sie es später erneut.');
         } finally {

@@ -1,30 +1,49 @@
 export default function ImpressumPage() {
     return (
-        <main className="max-w-4xl mx-auto px-4 py-12 prose prose-slate">
-            <h1 className="text-3xl font-bold mb-8">Impressum</h1>
+        <main className="max-w-4xl mx-auto px-6 py-24 prose prose-slate">
+            <h1 className="text-4xl font-black text-slate-900 mb-12 tracking-tight">Impressum</h1>
 
-            <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Angaben gemäß § 5 TMG</h2>
-                <p>[NAME DES UNTERNEHMENS]<br />
-                    [ADRESSE]<br />
-                    [PLZ, STADT]</p>
-            </section>
+            <div className="space-y-12">
+                <section>
+                    <h2 className="text-xl font-bold text-slate-900 mb-4 border-b pb-2">Angaben gemäß § 5 TMG</h2>
+                    <p className="text-slate-600 leading-relaxed">
+                        [Vorname Nachname / Firmenname]<br />
+                        [Straße Hausnummer]<br />
+                        [PLZ Stadt]
+                    </p>
+                </section>
 
-            <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Kontakt</h2>
-                <p>Telefon: [TELEFONNUMMER]<br />
-                    E-Mail: [EMAIL-ADRESSE]</p>
-            </section>
+                <section>
+                    <h2 className="text-xl font-bold text-slate-900 mb-4 border-b pb-2">Kontakt</h2>
+                    <p className="text-slate-600 leading-relaxed">
+                        Telefon: [Deine Telefonnummer]<br />
+                        E-Mail: [Deine E-Mail-Adresse]
+                    </p>
+                </section>
 
-            <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Redaktionell verantwortlich</h2>
-                <p>[NAME DES VERANTWORTLICHEN]<br />
-                    [ADRESSE]</p>
-            </section>
+                <section>
+                    <h2 className="text-xl font-bold text-slate-900 mb-4 border-b pb-2">Redaktionell verantwortlich</h2>
+                    <p className="text-slate-600 leading-relaxed">
+                        [Name des Verantwortlichen]<br />
+                        [Anschrift wie oben]
+                    </p>
+                </section>
 
-            <section className="mb-8 border-t pt-8 mt-12 text-sm text-slate-500">
-                <p>Haftungsausschluss: Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.</p>
-            </section>
+                <section>
+                    <h2 className="text-xl font-bold text-slate-900 mb-4 border-b pb-2">EU-Streitschlichtung</h2>
+                    <p className="text-slate-600 leading-relaxed">
+                        Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+                        <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline ml-1">
+                            https://ec.europa.eu/consumers/odr/
+                        </a>.
+                        Unsere E-Mail-Adresse finden Sie oben im Impressum.
+                    </p>
+                </section>
+
+                <section className="bg-slate-50 p-8 rounded-3xl border border-slate-100 italic text-sm text-slate-500">
+                    Hinweis: Dies ist ein Template. Bitte lassen Sie Ihre rechtlichen Dokumente vor dem Live-Gang von einem Fachanwalt prüfen.
+                </section>
+            </div>
         </main>
     );
 }
