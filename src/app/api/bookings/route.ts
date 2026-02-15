@@ -50,15 +50,14 @@ export async function POST(request: Request) {
                     subject: `Deine Terminanfrage: ${service}`,
                     react: BookingEmail({ customerName: name, service, date, time }),
                 });
-            } catch (emailError) {
-                console.error('Email Error:', emailError);
+            } catch {
+                // Silently fail email but log it if needed
             }
         }
 
         return NextResponse.json({ success: true, booking });
 
-    } catch (error) {
-        console.error('General Error:', error);
+    } catch {
         return NextResponse.json({ error: 'Interner Server-Fehler' }, { status: 500 });
     }
 }
