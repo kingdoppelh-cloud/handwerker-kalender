@@ -84,7 +84,7 @@ export default function DashboardPage() {
 
     const updateStatus = async (id: string, newStatus: string) => {
         if (isDemo) {
-            setBookings(prev => prev.map(b => b.id === id ? { ...b, status: newStatus as any } : b));
+            setBookings(prev => prev.map(b => b.id === id ? { ...b, status: newStatus as Booking['status'] } : b));
             return;
         }
         const { error } = await supabase
