@@ -205,7 +205,7 @@ const getGoogleCalendarLink = (booking: Booking) => {
         const details = `Kunde: ${booking.customer_name}\nTelefon: ${booking.customer_phone}\nAdresse: ${booking.customer_address}\n\nBeschreibung: ${booking.problem_description}`;
 
         return `https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(booking.service + " - " + booking.customer_name)}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(booking.customer_address)}&dates=${formatForGoogle(startDate)}/${formatForGoogle(endDate)}`;
-    } catch (e) {
+    } catch {
         return '#';
     }
 };
@@ -253,7 +253,7 @@ function BookingCard({ booking, onStatusUpdate, onDelete }: { booking: Booking, 
                     </div>
                     {booking.problem_description && (
                         <p className="text-sm text-slate-600 italic border-l-2 border-slate-200 pl-3 mb-4">
-                            "{booking.problem_description}"
+                            &quot;{booking.problem_description}&quot;
                         </p>
                     )}
                     <div className="flex flex-wrap gap-2">
