@@ -4,7 +4,7 @@
 // Landing Page
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle2, ShieldCheck, Star, MapPin, Calendar, MessageCircle, Navigation } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck, MapPin, Calendar, MessageCircle, Navigation } from 'lucide-react';
 import SchemaOrg from '@/components/SchemaOrg';
 
 export default function HomePage() {
