@@ -325,9 +325,18 @@ function BookingCard({ booking, onStatusUpdate, onDelete }: { booking: Booking, 
                                         Navigation starten 📍
                                     </a>
                                 </div>
-                                <div className="flex items-center text-slate-600 text-sm bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                                    <Phone className="w-4 h-4 mr-3 text-blue-600" />
-                                    <span className="font-bold">{booking.customer_phone}</span>
+                                <div className="flex flex-col gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                                    <div className="flex items-center text-slate-600 text-sm">
+                                        <Phone className="w-4 h-4 mr-3 text-blue-600" />
+                                        <span className="font-bold">{booking.customer_phone}</span>
+                                    </div>
+                                    <a
+                                        href={`tel:${booking.customer_phone.replace(/\s+/g, '')}`}
+                                        className="text-xs text-blue-600 font-bold flex items-center gap-1 hover:underline ml-7"
+                                    >
+                                        <Phone size={12} />
+                                        Jetzt anrufen
+                                    </a>
                                 </div>
                             </div>
                         </div>
