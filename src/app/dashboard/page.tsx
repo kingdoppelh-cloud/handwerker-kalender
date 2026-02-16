@@ -10,7 +10,6 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
 import { db } from '@/lib/db';
-import { toast } from 'sonner';
 
 interface Booking {
     id: string;
