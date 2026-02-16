@@ -85,7 +85,7 @@ export default function HomePage() {
               Starten Sie jetzt für nur <span className="text-yellow-400">495,00 €</span>
             </h2>
             <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Sichern Sie sich einen von nur 10 Pilot-Plätzen. Einmalige Einrichtung, volle Power. Wir digitalisieren Ihren Betrieb persönlich.
+              Sichern Sie sich einen von nur 3 Pilot-Plätzen. Einmalige Einrichtung, volle Power. Wir digitalisieren Ihren Betrieb persönlich.
             </p>
             <a
               href="https://wa.me/491772666006?text=Moin%20Hendrik,%20ich%20habe%20Interesse%20am%20Pilot-Platz."
