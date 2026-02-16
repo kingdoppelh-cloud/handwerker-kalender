@@ -24,6 +24,13 @@ interface Booking {
     problem_description: string;
 }
 
+const serviceLabels: Record<string, string> = {
+    beratung: 'Beratung / Angebot vor Ort',
+    reparatur: 'Reparatur / Störung',
+    wartung: 'Wartung / Service',
+    sonstiges: 'Sonstiges'
+};
+
 export default function DashboardPage() {
     return (
         <Suspense fallback={
@@ -340,7 +347,9 @@ function BookingCard({ booking, onStatusUpdate, onDelete }: { booking: Booking, 
                             <div>
                                 <h3 className="text-xl font-bold text-slate-900">{booking.customer_name}</h3>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-blue-600 text-xs font-bold uppercase tracking-wider">{booking.service}</span>
+                                    <span className="text-blue-600 text-xs font-bold uppercase tracking-wider">
+                                        {serviceLabels[booking.service] || booking.service}
+                                    </span>
                                     <span className="w-1 h-1 rounded-full bg-slate-300" />
                                     <span className="text-slate-500 text-xs">{booking.id.slice(0, 8)}</span>
                                 </div>
