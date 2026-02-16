@@ -9,6 +9,8 @@ import { Calendar, Clock, MapPin, ExternalLink, LogOut, Trash2, Home, CheckCircl
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
+import { db } from '@/lib/db';
+import { toast } from 'sonner';
 
 interface Booking {
     id: string;
@@ -67,10 +69,10 @@ function DashboardContent() {
 
         setIsDemo(demoMode);
 
-        if (demoMode) {
-            // Ensure storage is in sync for refreshes
-            localStorage.setItem('isDemoMode', 'true');
-            setBookings([
+        const applyDemoData = async () => {
+            setLoading(true);
+            // Predefined Mock Data
+            const mockBookings: Booking[] = [
                 {
                     id: 'demo-1',
                     customer_name: 'Max Mustermann (DEMO)',
@@ -93,8 +95,34 @@ function DashboardContent() {
                     customer_address: 'Hauptstraße 45, Berlin',
                     problem_description: 'Abfluss in der Küche ist komplett verstopft.'
                 }
-            ]);
+            ];
+
+            try {
+                // Get data from Dexie
+                const localBookings = await db.appointments.toArray();
+                const mappedLocal: Booking[] = localBookings.map(app => ({
+                    id: `local-${app.id}`,
+                    customer_name: app.name,
+                    service: app.service,
+                    booking_date: app.date,
+                    booking_time: app.time,
+                    status: (app.status as Booking['status']) || 'pending',
+                    customer_phone: app.phone || '',
+                    customer_address: app.address,
+                    problem_description: app.description || ''
+                }));
+
+                setBookings([...mappedLocal, ...mockBookings]);
+            } catch (error) {
+                console.error("Dexie fetch error:", error);
+                setBookings(mockBookings);
+            }
             setLoading(false);
+        };
+
+        if (demoMode) {
+            localStorage.setItem('isDemoMode', 'true');
+            applyDemoData();
         } else {
             fetchBookings();
         }

@@ -12,6 +12,8 @@ import { Button } from './ui/button';
 import { Calendar, Clock, CheckCircle, ArrowRight, Home } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { db } from '@/lib/db';
+import { toast } from 'sonner';
 
 const formSchema = z.object({
     service: z.string().min(1, 'Bitte wählen Sie eine Dienstleistung'),
@@ -48,6 +50,19 @@ export default function BookingForm() {
     const onSubmit = async (data: FormValues) => {
         setIsLoading(true);
         try {
+            // Lokal speichern in Dexie für Demo-Zwecke
+            await db.appointments.add({
+                service: data.service,
+                date: data.date,
+                time: data.time,
+                name: data.name,
+                phone: data.phone,
+                address: data.address,
+                description: data.description,
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            });
+
             const response = await fetch('/api/bookings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -55,10 +70,14 @@ export default function BookingForm() {
             });
 
             if (!response.ok) throw new Error('Fehler');
+
+            toast.success("Termin erfolgreich gebucht! ✨");
+
             // Redirect to success page for premium experience
             router.push('/success');
-        } catch {
-            alert('Entschuldigung, es gab ein Problem bei der Buchung. Bitte versuchen Sie es später erneut.');
+        } catch (error) {
+            console.error('Booking error:', error);
+            toast.error("Entschuldigung, es gab ein Problem bei der Buchung.");
         } finally {
             setIsLoading(false);
         }
