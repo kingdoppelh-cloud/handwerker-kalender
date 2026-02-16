@@ -3,7 +3,7 @@
 // Landing Page
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle2, ShieldCheck, Star, MapPin, Calendar, MessageCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Star, MapPin, Calendar, MessageCircle, Navigation } from 'lucide-react';
 import SchemaOrg from '@/components/SchemaOrg';
 
 export default function HomePage() {
@@ -131,10 +131,10 @@ export default function HomePage() {
 
             <div className="group p-10 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
               <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mb-8 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500">
-                <Star size={32} />
+                <Navigation size={32} />
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-slate-900">Einfaches Dashboard</h3>
-              <p className="text-slate-600 leading-relaxed text-lg">Handwerker verwalten alle Anfragen zentral an einem Ort. Effizienz trifft auf Handwerk.</p>
+              <h3 className="text-2xl font-bold mb-4 text-slate-900">1-Klick-Navigation</h3>
+              <p className="text-slate-600 leading-relaxed text-lg">Starten Sie die Route zum Kunden direkt aus dem Dashboard. Nie wieder Adressen ins Navi abtippen – einfach losfahren.</p>
             </div>
           </div>
         </div>
