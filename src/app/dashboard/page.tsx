@@ -142,7 +142,11 @@ function DashboardContent() {
                 try {
                     const localId = parseInt(id.replace('local-', ''));
                     await db.appointments.update(localId, { status: newStatus });
-                    toast.success(`Status auf "${newStatus}" aktualisiert!`);
+                    if (newStatus === 'confirmed') {
+                        toast.success("Termin bestätigt & Benachrichtigung an Kunden gesendet! ✉️");
+                    } else {
+                        toast.success(`Status auf "${newStatus}" aktualisiert!`);
+                    }
                 } catch (error) {
                     console.error("Dexie update error:", error);
                 }
