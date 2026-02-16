@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
 import { db } from '@/lib/db';
+import { toast } from 'sonner';
 
 interface Booking {
     id: string;
@@ -129,6 +130,16 @@ function DashboardContent() {
 
     const updateStatus = async (id: string, newStatus: string) => {
         if (isDemo) {
+            // Check if it's a local booking
+            if (id.startsWith('local-')) {
+                try {
+                    const localId = parseInt(id.replace('local-', ''));
+                    await db.appointments.update(localId, { status: newStatus });
+                    toast.success(`Status auf "${newStatus}" aktualisiert!`);
+                } catch (error) {
+                    console.error("Dexie update error:", error);
+                }
+            }
             setBookings(prev => prev.map(b => b.id === id ? { ...b, status: newStatus as Booking['status'] } : b));
             return;
         }
@@ -146,6 +157,17 @@ function DashboardContent() {
         if (!confirm('Möchten Sie diese Buchung wirklich dauerhaft löschen?')) return;
 
         if (isDemo) {
+            if (id.startsWith('local-')) {
+                try {
+                    const localId = parseInt(id.replace('local-', ''));
+                    await db.appointments.delete(localId);
+                    toast.success("Auftrag dauerhaft gelöscht.");
+                } catch (error) {
+                    console.error("Dexie delete error:", error);
+                }
+            } else {
+                toast.info("Mock-Daten können nur temporär entfernt werden.");
+            }
             setBookings(prev => prev.filter(b => b.id !== id));
             return;
         }
