@@ -316,13 +316,13 @@ function BookingCard({ booking, onStatusUpdate, onDelete }: { booking: Booking, 
                                         <span className="break-words font-medium">{booking.customer_address}</span>
                                     </div>
                                     <a
-                                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(booking.customer_address)}`}
+                                        href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(booking.customer_address)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="text-xs text-blue-600 font-bold flex items-center gap-1 hover:underline ml-7"
                                     >
                                         <ExternalLink size={12} />
-                                        Route starten
+                                        Navigation starten 📍
                                     </a>
                                 </div>
                                 <div className="flex items-center text-slate-600 text-sm bg-slate-50 p-3 rounded-2xl border border-slate-100">
