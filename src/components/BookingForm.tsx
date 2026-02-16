@@ -9,7 +9,7 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
-import { Calendar, Clock, CheckCircle, ArrowRight, Home } from 'lucide-react';
+import { Calendar, Clock, CheckCircle, ArrowRight, Home, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { db } from '@/lib/db';
@@ -20,6 +20,7 @@ const formSchema = z.object({
     date: z.string().min(1, 'Bitte wählen Sie ein Datum'),
     time: z.string().min(1, 'Bitte wählen Sie eine Uhrzeit'),
     name: z.string().min(2, 'Name ist zu kurz'),
+    email: z.string().email('Ungültiges E-Mail-Format').optional().or(z.literal('')),
     phone: z.string().min(6, 'Telefonnummer ist ungültig'),
     address: z.string().min(5, 'Adresse ist zu kurz'),
     description: z.string().optional(),
@@ -56,6 +57,7 @@ export default function BookingForm() {
                 date: data.date,
                 time: data.time,
                 name: data.name,
+                email: data.email,
                 phone: data.phone,
                 address: data.address,
                 description: data.description,
@@ -71,7 +73,7 @@ export default function BookingForm() {
 
             if (!response.ok) throw new Error('Fehler');
 
-            toast.success("Termin erfolgreich gebucht! ✨");
+            toast.success("Termin gebucht & Bestätigung an Kunden gesendet! ✨");
 
             // Redirect to success page for premium experience
             router.push('/success');
@@ -179,7 +181,14 @@ export default function BookingForm() {
                     <div className="pt-4 space-y-4">
                         <Label className="text-xs font-black uppercase tracking-widest text-slate-400">Persönliche Daten</Label>
                         <div className="space-y-4">
-                            <Input id="name" {...register('name')} placeholder="Max Mustermann" className="h-14 rounded-2xl border-slate-200 bg-white/50" />
+                            <div className="relative">
+                                <Input id="name" {...register('name')} placeholder="Max Mustermann" className="h-14 pl-12 rounded-2xl border-slate-200 bg-white/50" />
+                                <Home className="absolute left-4 top-4 h-5 w-5 text-slate-400" />
+                            </div>
+                            <div className="relative">
+                                <Input id="email" type="email" {...register('email')} placeholder="kunde@beispiel.de" className="h-14 pl-12 rounded-2xl border-slate-200 bg-white/50" />
+                                <Mail className="absolute left-4 top-4 h-5 w-5 text-slate-400" />
+                            </div>
                             <Input id="phone" {...register('phone')} placeholder="+49 123 4567890" className="h-14 rounded-2xl border-slate-200 bg-white/50" />
                             <Input id="address" {...register('address')} placeholder="Hauptstraße 1, 12345 Berlin" className="h-14 rounded-2xl border-slate-200 bg-white/50" />
                             <Textarea

@@ -7,6 +7,7 @@ export interface Appointment {
     time: string;
     name: string;
     phone?: string;
+    email?: string;
     address: string;
     description?: string;
     status?: string;
@@ -20,9 +21,9 @@ const db = new Dexie('HandwerkerDB') as Dexie & {
     >;
 };
 
-// Schema definition for version 2
-db.version(2).stores({
-    appointments: '++id, service, date, time, name, phone, status, createdAt'
+// Schema definition for version 3
+db.version(3).stores({
+    appointments: '++id, service, date, time, name, phone, email, status, createdAt'
 });
 
 export { db };
