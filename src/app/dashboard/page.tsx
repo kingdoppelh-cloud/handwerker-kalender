@@ -310,13 +310,24 @@ function BookingCard({ booking, onStatusUpdate, onDelete }: { booking: Booking, 
                                 </div>
                             </div>
                             <div className="space-y-4">
-                                <div className="flex items-center text-slate-600 text-sm bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                                    <MapPin className="w-4 h-4 mr-3 text-blue-600 shrink-0" />
-                                    <span className="break-words">{booking.customer_address}</span>
+                                <div className="flex flex-col gap-2 bg-slate-50 p-3 rounded-2xl border border-slate-100">
+                                    <div className="flex items-center text-slate-600 text-sm">
+                                        <MapPin className="w-4 h-4 mr-3 text-blue-600 shrink-0" />
+                                        <span className="break-words font-medium">{booking.customer_address}</span>
+                                    </div>
+                                    <a
+                                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(booking.customer_address)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs text-blue-600 font-bold flex items-center gap-1 hover:underline ml-7"
+                                    >
+                                        <ExternalLink size={12} />
+                                        Route starten
+                                    </a>
                                 </div>
                                 <div className="flex items-center text-slate-600 text-sm bg-slate-50 p-3 rounded-2xl border border-slate-100">
                                     <Phone className="w-4 h-4 mr-3 text-blue-600" />
-                                    <span>{booking.customer_phone}</span>
+                                    <span className="font-bold">{booking.customer_phone}</span>
                                 </div>
                             </div>
                         </div>
