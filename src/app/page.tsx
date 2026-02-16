@@ -3,7 +3,7 @@
 // Landing Page
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle2, ShieldCheck, Star, MapPin, Calendar } from 'lucide-react';
+import { ArrowRight, CheckCircle2, ShieldCheck, Star, MapPin, Calendar, MessageCircle } from 'lucide-react';
 import SchemaOrg from '@/components/SchemaOrg';
 
 export default function HomePage() {
@@ -86,15 +86,16 @@ export default function HomePage() {
             <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
               Sichern Sie sich einen von nur 10 Pilot-Plätzen. Einmalige Zahlung, volle Power. Wir digitalisieren Ihren Betrieb persönlich.
             </p>
-            <button
-              onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-10 py-6 bg-white text-blue-600 font-black text-xl rounded-2xl shadow-xl hover:scale-105 active:scale-95 transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] relative overflow-hidden group/btn"
+            <a
+              href="https://wa.me/491772666006?text=Moin%20Hendrik,%20ich%20habe%20Interesse%20am%20Pilot-Platz."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-10 py-6 bg-green-600 text-white font-black text-xl rounded-2xl shadow-xl hover:bg-green-700 hover:scale-105 active:scale-95 transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] group/btn"
             >
-              <span className="relative z-10 flex items-center gap-2">
-                Jetzt Pilot-Platz anfragen
-                <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-1 transition-transform" />
-              </span>
-            </button>
+              <MessageCircle className="w-6 h-6 fill-current" />
+              Jetzt per WhatsApp anfragen
+              <ArrowRight className="w-6 h-6 group-hover/btn:translate-x-1 transition-transform" />
+            </a>
             <div className="mt-8 flex items-center justify-center gap-6 text-sm text-blue-200">
               <span className="flex items-center gap-1"><CheckCircle2 size={16} /> Keine monatlichen Kosten</span>
               <span className="flex items-center gap-1"><CheckCircle2 size={16} /> Persönliche Einrichtung</span>
