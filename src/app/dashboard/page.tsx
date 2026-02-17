@@ -238,6 +238,7 @@ function DashboardContent() {
                             size="sm"
                             onClick={handleLogout}
                             className="text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-xl px-4"
+                            aria-label={isDemo ? 'Demo beenden' : 'Abmelden'}
                         >
                             <LogOut className="h-4 w-4 mr-2" />
                             {isDemo ? 'Demo beenden' : 'Abmelden'}
@@ -255,6 +256,7 @@ function DashboardContent() {
                             ? 'bg-white shadow-xl shadow-blue-900/5 border-blue-100 ring-2 ring-blue-600/10'
                             : 'bg-white/40 border-slate-200 hover:bg-white'
                             }`}
+                        aria-label={`Zeige ${bookings.filter(b => b.status === 'pending').length} neue Anfragen`}
                     >
                         <div className="flex justify-between items-start mb-4">
                             <div className={`p-3 rounded-2xl ${activeTab === 'pending' ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-600'}`}>
@@ -460,6 +462,7 @@ function BookingCard({ booking, onStatusUpdate, onDelete }: { booking: Booking, 
                                 variant="ghost"
                                 onClick={() => onStatusUpdate(booking.id, 'rejected')}
                                 className="w-full h-12 rounded-2xl text-slate-400 hover:text-red-600 hover:bg-red-50 font-medium"
+                                aria-label="Buchung ablehnen"
                             >
                                 Ablehnen
                             </Button>
@@ -474,6 +477,7 @@ function BookingCard({ booking, onStatusUpdate, onDelete }: { booking: Booking, 
                                     e.stopPropagation();
                                     onDelete(booking.id);
                                 }}
+                                aria-label="Buchung löschen"
                             >
                                 <Trash2 className="w-4 h-4" />
                             </Button>

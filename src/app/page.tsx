@@ -19,7 +19,7 @@ export default function HomePage() {
           muted
           loop
           playsInline
-          poster="/hero_video_poster.webp"
+          poster="/hero_video_poster.png"
           preload="auto"
           className="absolute top-0 left-0 w-full h-full object-cover z-0"
         >

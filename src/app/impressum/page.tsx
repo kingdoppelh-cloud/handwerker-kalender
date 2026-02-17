@@ -7,25 +7,26 @@ export default function ImpressumPage() {
                 <section>
                     <h2 className="text-xl font-bold text-slate-900 mb-4 border-b pb-2">Angaben gemäß § 5 TMG</h2>
                     <p className="text-slate-600 leading-relaxed">
-                        [Vorname Nachname / Firmenname]<br />
-                        [Straße Hausnummer]<br />
-                        [PLZ Stadt]
+                        Max Mustermann<br />
+                        Musterstraße 1<br />
+                        12345 Musterstadt
                     </p>
                 </section>
 
                 <section>
                     <h2 className="text-xl font-bold text-slate-900 mb-4 border-b pb-2">Kontakt</h2>
                     <p className="text-slate-600 leading-relaxed">
-                        Telefon: [Deine Telefonnummer]<br />
-                        E-Mail: [Deine E-Mail-Adresse]
+                        Telefon: +49 123 4567890<br />
+                        E-Mail: info@handwerker-kalender.de
                     </p>
                 </section>
 
                 <section>
                     <h2 className="text-xl font-bold text-slate-900 mb-4 border-b pb-2">Redaktionell verantwortlich</h2>
                     <p className="text-slate-600 leading-relaxed">
-                        [Name des Verantwortlichen]<br />
-                        [Anschrift wie oben]
+                        Max Mustermann<br />
+                        Musterstraße 1<br />
+                        12345 Musterstadt
                     </p>
                 </section>
 

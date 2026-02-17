@@ -51,7 +51,7 @@ export default function BookingForm() {
     const onSubmit = async (data: FormValues) => {
         setIsLoading(true);
         try {
-            // Lokal speichern in Dexie für Demo-Zwecke
+            // Lokal speichern in Dexie (Offline-First)
             await db.appointments.add({
                 service: data.service,
                 date: data.date,
@@ -100,6 +100,7 @@ export default function BookingForm() {
                         <Button
                             className="h-14 px-8 rounded-2xl bg-blue-600 hover:bg-blue-700 font-bold"
                             onClick={() => setIsSubmitted(false)}
+                            aria-label="Neue Buchung starten"
                         >
                             Neue Buchung
                         </Button>
@@ -107,6 +108,7 @@ export default function BookingForm() {
                             <Button
                                 variant="outline"
                                 className="h-14 px-8 rounded-2xl border-slate-200 hover:bg-slate-50 font-bold"
+                                aria-label="Zurück zur Startseite"
                             >
                                 <Home className="mr-2 h-4 w-4" />
                                 Startseite
@@ -206,7 +208,7 @@ export default function BookingForm() {
                         className="w-full h-16 rounded-2xl bg-blue-600 hover:bg-blue-700 text-lg font-bold shadow-xl shadow-blue-900/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
                     >
                         {isLoading ? 'Wird gesendet...' : 'Anfrage verbindlich senden'}
-                        {!isLoading && <ArrowRight className="ml-2 w-5 h-5" />}
+                        {!isLoading && <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />}
                     </Button>
 
                     <p className="text-[10px] text-center text-slate-400 font-medium">
