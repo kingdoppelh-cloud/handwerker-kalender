@@ -9,7 +9,7 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
-import { Calendar, Clock, ArrowRight, Home, Mail } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, User, Mail } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { db } from '@/lib/db';
 import { toast } from 'sonner';
@@ -151,7 +151,7 @@ export default function BookingForm() {
                         <div className="space-y-4">
                             <div className="relative">
                                 <Input id="name" {...register('name')} placeholder="Max Mustermann" className="h-14 pl-12 rounded-2xl border-slate-200 bg-white/50" />
-                                <Home className="absolute left-4 top-4 h-5 w-5 text-slate-400" />
+                                <User className="absolute left-4 top-4 h-5 w-5 text-slate-400" />
                             </div>
                             <div className="relative">
                                 <Input id="email" type="email" {...register('email')} placeholder="kunde@beispiel.de" className="h-14 pl-12 rounded-2xl border-slate-200 bg-white/50" />
