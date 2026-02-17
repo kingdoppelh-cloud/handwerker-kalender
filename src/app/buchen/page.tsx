@@ -1,9 +1,14 @@
 import BookingForm from '@/components/BookingForm';
+import type { Metadata } from 'next';
 
+export const metadata: Metadata = {
+    title: 'Termin buchen – HandwerkerKalender',
+    description: 'Buchen Sie jetzt Ihren Handwerker-Termin online. Schnell, einfach und verbindlich.',
+};
 
 export default function BookingPage() {
     return (
-        <main className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+        <main className="min-h-screen bg-slate-50 py-8 px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto">
                 <div className="text-center mb-8">
                     <h1 className="text-3xl font-bold text-slate-900 sm:text-4xl">

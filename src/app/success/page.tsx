@@ -47,7 +47,7 @@ export default function SuccessPage() {
                         </h1>
 
                         <p className="text-lg text-slate-600 mb-12 leading-relaxed">
-                            Vielen Dank für Ihr Vertrauen. Wir haben Ihre Buchung erhalten und werden uns innerhalb der nächsten **2 Stunden** bei Ihnen zur finalen Bestätigung melden.
+                            Vielen Dank für Ihr Vertrauen. Wir haben Ihre Buchung erhalten und melden uns <strong>in Kürze</strong> bei Ihnen zur finalen Bestätigung.
                         </p>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

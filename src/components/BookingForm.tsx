@@ -9,8 +9,7 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
-import { Calendar, Clock, CheckCircle, ArrowRight, Home, Mail } from 'lucide-react';
-import Link from 'next/link';
+import { Calendar, Clock, ArrowRight, Home, Mail } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { db } from '@/lib/db';
 import { toast } from 'sonner';
@@ -40,8 +39,8 @@ const timeSlots = [
 ];
 
 export default function BookingForm() {
-    const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const today = new Date().toISOString().split('T')[0];
     const router = useRouter();
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
@@ -85,40 +84,6 @@ export default function BookingForm() {
         }
     };
 
-    if (isSubmitted) {
-        return (
-            <Card className="rounded-[40px] border-none shadow-2xl shadow-emerald-900/10 overflow-hidden animate-fade-in">
-                <CardContent className="p-12 text-center bg-white/50 backdrop-blur-xl">
-                    <div className="w-20 h-20 bg-emerald-100 rounded-3xl flex items-center justify-center mx-auto mb-8 text-emerald-600">
-                        <CheckCircle size={40} />
-                    </div>
-                    <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Anfrage gesendet!</h2>
-                    <p className="text-slate-600 text-lg leading-relaxed max-w-sm mx-auto">
-                        Wir haben Ihre Buchungsanfrage erhalten und melden uns in Kürze zur Bestätigung bei Ihnen.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-                        <Button
-                            className="h-14 px-8 rounded-2xl bg-blue-600 hover:bg-blue-700 font-bold"
-                            onClick={() => setIsSubmitted(false)}
-                            aria-label="Neue Buchung starten"
-                        >
-                            Neue Buchung
-                        </Button>
-                        <Link href="/">
-                            <Button
-                                variant="outline"
-                                className="h-14 px-8 rounded-2xl border-slate-200 hover:bg-slate-50 font-bold"
-                                aria-label="Zurück zur Startseite"
-                            >
-                                <Home className="mr-2 h-4 w-4" />
-                                Startseite
-                            </Button>
-                        </Link>
-                    </div>
-                </CardContent>
-            </Card>
-        );
-    }
 
     return (
         <Card className="rounded-[40px] border-none shadow-2xl shadow-blue-900/10 overflow-hidden animate-fade-in">
@@ -154,6 +119,7 @@ export default function BookingForm() {
                                     <Input
                                         id="date"
                                         type="date"
+                                        min={today}
                                         {...register('date')}
                                         className="h-14 pl-12 rounded-2xl border-slate-200 bg-white/50 focus:ring-blue-600/20"
                                     />
