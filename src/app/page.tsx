@@ -150,7 +150,7 @@ export default function HomePage() {
                 Ich bin Hendrik, Webentwickler aus der Region. Mein Ziel ist es, das Handwerk durch smarte Lösungen vom Telefon-Chaos zu befreien, damit Sie sich auf Ihre echte Arbeit konzentrieren können. Ich begleite Sie persönlich bei der Einrichtung Ihres Kalenders.
               </p>
               <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                <Link href="/buchen">
+                <Link href="/dashboard?demo=true">
                   <Button variant="outline" className="rounded-xl font-bold">Live-Demo testen</Button>
                 </Link>
                 <Link href="/buchen">
