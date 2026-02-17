@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect, useCallback, Suspense } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, MapPin, ExternalLink, LogOut, Trash2, Home, CheckCircle2, Clock3, AlertCircle, Phone } from 'lucide-react';
+import { Calendar, Clock, MapPin, ExternalLink, LogOut, Trash2, Home, CheckCircle2, Clock3, AlertCircle, Phone, Mail, X, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { createBrowserClient } from '@supabase/ssr';
@@ -48,6 +48,9 @@ function DashboardContent() {
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
     const [isDemo, setIsDemo] = useState(false);
+    const [showEmailPreview, setShowEmailPreview] = useState(false);
+    const [previewMode, setPreviewMode] = useState<'email' | 'sms'>('email');
+    const [emailPreviewData, setEmailPreviewData] = useState<Booking | null>(null);
     const router = useRouter();
     const searchParams = useSearchParams();
 
@@ -143,6 +146,13 @@ function DashboardContent() {
                     const localId = parseInt(id.replace('local-', ''));
                     await db.appointments.update(localId, { status: newStatus });
                     if (newStatus === 'confirmed') {
+                        // Demo E-Mail-Simulation:
+                        const booking = bookings.find(b => b.id === id);
+                        if (booking) {
+                            setEmailPreviewData(booking);
+                            setPreviewMode('email');
+                            setShowEmailPreview(true);
+                        }
                         toast.success("Termin bestätigt & Benachrichtigung an Kunden gesendet! ✉️");
                     } else {
                         toast.success(`Status auf "${newStatus}" aktualisiert!`);
@@ -340,7 +350,132 @@ function DashboardContent() {
                     </div>
                 )}
             </main>
-        </div>
+
+            {/* Email Preview Modal (Demo) */}
+            {showEmailPreview && emailPreviewData && (
+                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+                    <div className="bg-white rounded-[32px] shadow-2xl w-full max-w-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                        {/* Modal Header & Tabs */}
+                        <div className="bg-slate-50 border-b border-slate-100">
+                            <div className="p-6 flex justify-between items-center pb-2">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 shadow-sm">
+                                        {previewMode === 'email' ? <Mail size={20} /> : <MessageSquare size={20} />}
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-slate-900">Kunden-Benachrichtigung</h3>
+                                        <p className="text-xs text-slate-500">Live-Vorschau (Demo)</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setShowEmailPreview(false)}
+                                    className="w-10 h-10 rounded-xl hover:bg-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-600 transition-colors"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </div>
+
+                            {/* Tabs Switch */}
+                            <div className="flex px-6 gap-6 text-sm font-bold">
+                                <button
+                                    onClick={() => setPreviewMode('email')}
+                                    className={`pb-3 border-b-2 transition-colors ${previewMode === 'email' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-400 hover:text-slate-600'}`}
+                                >
+                                    E-Mail
+                                </button>
+                                <button
+                                    onClick={() => setPreviewMode('sms')}
+                                    className={`pb-3 border-b-2 transition-colors ${previewMode === 'sms' ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-400 hover:text-slate-600'}`}
+                                >
+                                    SMS (Premium)
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Content Area */}
+
+                        {previewMode === 'email' ? (
+                            <div className="p-8 bg-white max-h-[70vh] overflow-y-auto animate-in fade-in slide-in-from-right-4 duration-300">
+                                <div className="font-sans text-slate-800 leading-relaxed">
+                                    <h1 className="text-2xl font-bold text-blue-800 mb-6">Buchung bestätigt! ✨</h1>
+                                    <p className="mb-4">Hallo {emailPreviewData?.customer_name},</p>
+                                    <p className="mb-6">wir freuen uns, deinen Termin verbindlich zu bestätigen.</p>
+
+                                    <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 mb-8 space-y-3">
+                                        <div className="flex justify-between border-b border-slate-200 pb-2">
+                                            <span className="text-slate-500 font-medium">Dienstleistung:</span>
+                                            <span className="font-bold text-slate-900">{emailPreviewData?.service ? (serviceLabels[emailPreviewData.service] || emailPreviewData.service) : '-'}</span>
+                                        </div>
+                                        <div className="flex justify-between border-b border-slate-200 pb-2">
+                                            <span className="text-slate-500 font-medium">Datum:</span>
+                                            <span className="font-bold text-slate-900">{emailPreviewData?.booking_date}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                            <span className="text-slate-500 font-medium">Uhrzeit:</span>
+                                            <span className="font-bold text-slate-900">{emailPreviewData?.booking_time}</span>
+                                        </div>
+                                    </div>
+
+                                    <p className="mb-6">Unser Mitarbeiter wird zum vereinbarten Zeitpunkt bei dir eintreffen.</p>
+
+                                    <div className="flex items-start gap-3 bg-blue-50 p-4 rounded-xl text-blue-800 text-sm mb-6 border border-blue-100">
+                                        <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                                        <p>Bitte stelle sicher, dass der Zugang zum Arbeitsbereich frei ist.</p>
+                                    </div>
+
+                                    <hr className="my-6 border-slate-100" />
+                                    <p className="text-xs text-slate-400 text-center">
+                                        Dies ist eine automatisch generierte Nachricht von HandwerkerKalender Pro.
+                                    </p>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="p-8 bg-slate-50 max-h-[70vh] overflow-y-auto flex justify-center animate-in fade-in slide-in-from-right-4 duration-300">
+                                <div className="w-full max-w-sm bg-white rounded-3xl border border-slate-200 shadow-sm p-4 relative">
+                                    {/* Phone Header Mockup */}
+                                    <div className="flex justify-between text-[10px] text-slate-400 font-medium mb-6 px-1">
+                                        <span>14:30</span>
+                                        <div className="flex gap-1">
+                                            <span>5G</span>
+                                            <span>100%</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Chat Bubble */}
+                                    <div className="flex flex-col gap-2">
+                                        <div className="text-xs text-slate-400 text-center mb-2">Heute, {emailPreviewData?.booking_time}</div>
+                                        <div className="bg-blue-500 text-white p-4 rounded-2xl rounded-tl-none self-start max-w-[90%] shadow-sm text-sm leading-relaxed relative">
+                                            Hallo {emailPreviewData?.customer_name?.split(' ')[0]}, dein Termin für {emailPreviewData?.service ? (serviceLabels[emailPreviewData.service] || emailPreviewData.service) : ''} am {emailPreviewData?.booking_date} um {emailPreviewData?.booking_time} ist bestätigt! 👷‍♂️✅
+                                            <br /><br />
+                                            Bitte sorge für freien Zugang.
+                                            <br /><br />
+                                            Dein Handwerker-Team
+                                        </div>
+                                        <div className="text-[10px] text-slate-400 ml-2">Gelesen</div>
+                                    </div>
+
+                                    {/* Phone Input Mockup */}
+                                    <div className="mt-8 pt-3 border-t border-slate-100 flex items-center gap-2">
+                                        <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center">
+                                            <span className="text-slate-400 text-xs">+</span>
+                                        </div>
+                                        <div className="h-8 bg-slate-100 rounded-full flex-1 px-3 text-xs text-slate-400 flex items-center">
+                                            iMessage
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="p-4 bg-slate-50 border-t border-slate-100 text-center">
+                            <Button onClick={() => setShowEmailPreview(false)} className="bg-slate-900 hover:bg-slate-800 text-white rounded-xl px-8 font-bold h-12 shadow-lg shadow-slate-900/10">
+                                Schließen
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div >
     );
 }
 
