@@ -3,6 +3,13 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle2, ShieldCheck, MapPin, Calendar, MessageCircle, Navigation } from 'lucide-react';
 import SchemaOrg from '@/components/SchemaOrg';
+import HeroVideo from '@/components/HeroVideo';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'HandwerkerKalender – Profi-Termine online buchen',
+  description: 'Buchen Sie Ihren Handwerker-Termin einfach, schnell und verbindlich online. Schluss mit Warteschleifen!',
+};
 
 export default function HomePage() {
   return (
@@ -11,17 +18,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative h-[85vh] min-h-[600px] flex items-center overflow-hidden text-white">
         {/* Video Background */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/hero_video_poster.png"
-          preload="auto"
-          className="absolute top-0 left-0 w-full h-full object-cover z-0"
-        >
-          <source src="/hero.mp4" type="video/mp4" />
-        </video>
+        <HeroVideo />
 
         {/* 60% Black Overlay */}
         <div className="absolute top-0 left-0 w-full h-full bg-black/60 z-10" />
