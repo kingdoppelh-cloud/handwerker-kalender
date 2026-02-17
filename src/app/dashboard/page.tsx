@@ -161,6 +161,13 @@ function DashboardContent() {
 
         if (!error) {
             fetchBookings();
+            if (newStatus === 'confirmed') {
+                toast.success("Termin bestätigt & Benachrichtigung an Kunden gesendet! ✉️");
+            } else {
+                toast.success(`Status auf "${newStatus}" aktualisiert!`);
+            }
+        } else {
+            toast.error("Status konnte nicht aktualisiert werden.");
         }
     };
 
