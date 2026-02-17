@@ -145,23 +145,25 @@ function DashboardContent() {
                 try {
                     const localId = parseInt(id.replace('local-', ''));
                     await db.appointments.update(localId, { status: newStatus });
-                    if (newStatus === 'confirmed') {
-                        // Demo E-Mail-Simulation:
-                        const booking = bookings.find(b => b.id === id);
-                        if (booking) {
-                            setEmailPreviewData(booking);
-                            setPreviewMode('email');
-                            setShowEmailPreview(true);
-                        }
-                        toast.success("Termin bestätigt & Benachrichtigung an Kunden gesendet! ✉️");
-                    } else {
-                        toast.success(`Status auf "${newStatus}" aktualisiert!`);
-                    }
                 } catch (error) {
                     console.error("Dexie update error:", error);
                 }
             }
+
+            // UI Update & Modal Trigger (für ALLE Demo-Daten, ob lokal oder mock)
             setBookings(prev => prev.map(b => b.id === id ? { ...b, status: newStatus as Booking['status'] } : b));
+
+            if (newStatus === 'confirmed') {
+                const booking = bookings.find(b => b.id === id);
+                if (booking) {
+                    setEmailPreviewData(booking);
+                    setPreviewMode('email');
+                    setShowEmailPreview(true);
+                }
+                toast.success("Termin bestätigt & Benachrichtigung an Kunden gesendet! ✉️");
+            } else {
+                toast.success(`Status auf "${newStatus}" aktualisiert!`);
+            }
             return;
         }
         const { error } = await supabase
